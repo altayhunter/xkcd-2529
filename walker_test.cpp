@@ -1,0 +1,35 @@
+#include "walker.hpp" // Walker
+#include <cassert>    // assert
+#include <iostream>   // cout
+
+using namespace std;
+
+int main() {
+	// No marbles
+	{
+		Walker w(0, 5);
+		assert(w.steps() == 1);
+		assert(w.intersections() == 0);
+	}
+	// No steps
+	{
+		Walker w(4, 0);
+		assert(w.steps() == 1);
+		assert(w.intersections() == 0);
+	}
+	// Double zero
+	{
+		Walker w(0, 0);
+		assert(w.steps() == 1);
+		assert(w.intersections() == 0);
+	}
+	// Normal inputs
+	{
+		Walker w(4, 5);
+		assert(w.steps() >= 8);
+		assert(w.steps() <= 21);
+		assert(w.intersections() >= 2);
+	}
+	cout << "Test passed.\n";
+	return 0;
+}
