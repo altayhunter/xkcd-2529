@@ -1,6 +1,6 @@
 use num_rational::Rational64;
 
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Point {
 	x: i64,
 	y: i64,

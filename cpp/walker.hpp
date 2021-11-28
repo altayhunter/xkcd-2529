@@ -1,6 +1,6 @@
-#include "line.hpp"   // Point
-#include <set>        // set
-#include <vector>     // vector
+#include "line.hpp"      // Point
+#include <unordered_set> // unordered_set
+#include <vector>        // vector
 
 class Walker {
 public:
@@ -11,5 +11,5 @@ private:
 	Point randomNeighbor(const Point& p) const;
 	bool trapped(const Point& p) const;
 	std::vector<Point> marbles;
-	std::set<Point> visited;
+	std::unordered_set<Point, Point::Hash> visited;
 };
