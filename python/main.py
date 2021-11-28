@@ -8,7 +8,7 @@ def main() -> int:
 	k = 1000
 	steps = []
 	intersections = []
-	for i in range(0, 10000):
+	for i in range(0, 1000000):
 		w = Walker(n, k)
 		steps.append(len(w.visited))
 		intersections.append(w.intersections())
