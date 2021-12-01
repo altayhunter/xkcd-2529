@@ -7,4 +7,4 @@ edition = "2021"
 
 [dependencies]
 num-rational = "0.4"
-rand = "0.8.4"
+rand = { version = "0.8.4", features = ["small_rng"] }

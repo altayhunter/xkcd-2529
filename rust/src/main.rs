@@ -2,6 +2,7 @@ mod line;
 mod bestline;
 mod walker;
 use crate::walker::Walker;
+use rand::SeedableRng;
 
 fn average(numbers: &[usize]) -> f64 {
 	numbers.iter().sum::<usize>() as f64 / numbers.len() as f64
@@ -12,8 +13,9 @@ fn main() {
 	let k = 1000;
 	let mut steps = vec![];
 	let mut intersections = vec![];
+	let mut rng = rand::rngs::SmallRng::from_entropy();
 	for _ in 0..1000000 {
-		let w = Walker::new(n, k);
+		let w = Walker::new(&mut rng, n, k);
 		steps.push(w.steps());
 		intersections.push(w.intersections());
 	}
