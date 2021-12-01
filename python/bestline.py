@@ -13,10 +13,7 @@ class BestLine:
 				a = points[i]
 				b = points[j]
 				l = Line(a, b)
-				intersections = 2
-				for k in range(j + 1, len(points)):
-					if (l.intersects(points[k])):
-						intersections += 1
+				intersections = 2 + sum(1 for p in points[j+1:] if l.intersects(p))
 				if (intersections > self.numPoints):
 					self.numPoints = intersections
 					self.bestFit = l
