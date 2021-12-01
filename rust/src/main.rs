@@ -1,3 +1,4 @@
+mod rational;
 mod line;
 mod bestline;
 mod walker;
