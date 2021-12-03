@@ -1,6 +1,6 @@
-#include "point.hpp"   // Point
-#include "si_line.hpp" // Line
-#include <vector>      // vector
+#include "point.hpp" // Point
+#include "line.hpp"  // Line
+#include <vector>    // vector
 
 class BestLine {
 public:

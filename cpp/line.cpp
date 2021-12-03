@@ -1,6 +1,6 @@
-#include "si_line.hpp" // Line
-#include "point.hpp"   // Point
-#include <cmath>       // isfinite
+#include "line.hpp"  // Line
+#include "point.hpp" // Point
+#include <cmath>     // isfinite
 
 bool Line::intersects(const Point& p) const {
 	if (!std::isfinite(slope)) return p.x == intercept;

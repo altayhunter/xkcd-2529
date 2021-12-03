@@ -1,8 +1,8 @@
-#include "si_line.hpp" // Line
-#include "point.hpp"   // Point
-#include <cassert>     // assert
-#include <iostream>    // cout
-#include <sstream>     // stringstream
+#include "line.hpp"  // Line
+#include "point.hpp" // Point
+#include <cassert>   // assert
+#include <iostream>  // cout
+#include <sstream>   // stringstream
 
 using namespace std;
 

@@ -17,7 +17,7 @@ int main() {
 	vector<uint64_t> intersections;
 	steps.reserve(runs);
 	intersections.reserve(runs);
-	for (int i = 0; i < runs; i++) {
+	for (unsigned i = 0; i < runs; i++) {
 		Walker w(n, k);
 		steps.push_back(w.steps());
 		intersections.push_back(w.intersections());
