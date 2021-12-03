@@ -1,6 +1,6 @@
 #include "walker.hpp"    // Walker
 #include "best_line.hpp" // BestLine
-#include "line.hpp"      // Point
+#include "point.hpp"     // Point
 #include <ctime>         // time
 #include <functional>    // bind
 #include <random>        // uniform_int_distribution, default_random_engine

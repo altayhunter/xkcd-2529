@@ -1,7 +1,8 @@
-#include "line.hpp" // Line, Point
-#include <cassert>  // assert
-#include <iostream> // cout
-#include <sstream>  // stringstream
+#include "point.hpp"   // Point
+#include "pp_line.hpp" // Line
+#include <cassert>     // assert
+#include <iostream>    // cout
+#include <sstream>     // stringstream
 
 using namespace std;
 
