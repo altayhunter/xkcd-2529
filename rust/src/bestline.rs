@@ -1,7 +1,7 @@
 use crate::line::Point;
 use crate::line::Line;
 
-#[derive(PartialEq, Eq, Clone, Copy, Debug)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub struct BestLine {
 	points: usize,
 	best_fit: Line,
@@ -58,7 +58,7 @@ mod tests {
 			Point::new(3, 1),
 		];
 		let bl = BestLine::new(&v);
-		assert_eq!(format!("{}", bl), "(0, 1) 0");
+		assert_eq!(format!("{}", bl), "y = -0x + 1");
 		assert_eq!(bl.points, 4);
 	}
 
@@ -71,7 +71,7 @@ mod tests {
 			Point::new(4, 6),
 		];
 		let bl = BestLine::new(&v);
-		assert_eq!(format!("{}", bl), "(3, 3) 3");
+		assert_eq!(format!("{}", bl), "y = 3x + -6");
 		assert_eq!(bl.points, 3);
 	}
 }
