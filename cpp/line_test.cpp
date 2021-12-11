@@ -3,11 +3,11 @@
 #include <cassert>   // assert
 #include <iostream>  // cout
 #include <sstream>   // stringstream
-
+#include <limits>
 using namespace std;
 
 int main() {
-	// Rounding error symmetric
+	// No rounding error in symmetric case
 	{
 		auto a = Point(1001, 1);
 		auto b = Point(-1000, -1);
@@ -20,7 +20,7 @@ int main() {
 		ss << l;
 		assert(ss.str() == "y = 0.0009995x + -0.00049975");
 	}
-	// Rounding error asymmetric
+	// No rounding error in asymmetric case
 	{
 		auto a = Point(100000, 100000);
 		auto b = Point(-1, 0);
@@ -28,9 +28,32 @@ int main() {
 		auto c = Point(0, 1);
 		assert(!l.intersects(c));
 		auto d = Point(200001, 200000);
+		assert(l.intersects(d));
 		stringstream ss;
 		ss << l;
 		assert(ss.str() == "y = 0.99999x + 0.99999");
+	}
+	// Largest value with no rounding error
+	{
+		auto a = Point(134217726, 134217727);
+		auto b = Point(-1, 134217726);
+		Line l(a, b);
+		auto c = Point(0, 134217726);
+		assert(!l.intersects(c));
+		stringstream ss;
+		ss << l;
+		assert(ss.str() == "y = 7.45058e-09x + 1.34218e+08");
+	}
+	// Smallest actual rounding error
+	{
+		auto a = Point(134217727, 134217728);
+		auto b = Point(-1, 134217727);
+		Line l(a, b);
+		auto c = Point(0, 134217727);
+		assert(l.intersects(c));
+		stringstream ss;
+		ss << l;
+		assert(ss.str() == "y = 7.45058e-09x + 1.34218e+08");
 	}
 	// Vertical line
 	{
