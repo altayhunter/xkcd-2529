@@ -19,8 +19,7 @@ int main() {
 		BestLine bl(v);
 		stringstream ss;
 		ss << bl;
-		cout << ss.str() << endl;
-		assert(ss.str() == "4 intersections (0,1 0)");
+		assert(ss.str() == "4 intersections (y = -0x + 1)");
 	}
 	// Three diagonal, two horizontal
 	{
@@ -33,8 +32,7 @@ int main() {
 		BestLine bl(v);
 		stringstream ss;
 		ss << bl;
-		cout << ss.str() << endl;
-		assert(ss.str() == "3 intersections (3,3 3)");
+		assert(ss.str() == "3 intersections (y = 3x + -6)");
 	}
 	cout << "Test passed.\n";
 	return 0;
