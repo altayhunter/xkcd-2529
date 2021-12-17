@@ -1,0 +1,14 @@
+{
+  "name": "xkcd-2529",
+  "version": "1.0.0",
+  "description": "Random walker to solve xkcd.com/2529",
+  "main": "index.mjs",
+  "devDependencies": {
+    "jasmine": "^3.10.0"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "author": "Altay Hunter",
+  "license": "ISC"
+}
