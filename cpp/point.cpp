@@ -12,6 +12,6 @@ bool operator==(const Point& a, const Point& b) {
 
 size_t Point::Hash::operator()(const Point& p) const {
 	size_t x = std::hash<int>()(p.x);
-	size_t y = std::hash<int>()(p.y) << 1;
+	size_t y = std::hash<int>()(p.y) << 16;
 	return x ^ y;
 }
