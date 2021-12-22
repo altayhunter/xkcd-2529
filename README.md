@@ -82,4 +82,4 @@ Each of the implementations averaged the results of a million runs with `n=4` an
 * Rust: 23 seconds
 * C++: 30 seconds
 * JavaScript: 182 seconds
-* Python: 9548 seconds
+* Python: 1393 seconds

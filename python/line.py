@@ -1,14 +1,23 @@
 #!/usr/bin/python
-from fractions import Fraction
+from __future__ import annotations
+from math import isfinite
 
 class Point:
 	def __init__(self, x: int, y: int):
 		self.x = x
 		self.y = y
+	def up(self) -> Point:
+		return Point(self.x, self.y + 1)
+	def right(self) -> Point:
+		return Point(self.x + 1, self.y)
+	def down(self) -> Point:
+		return Point(self.x, self.y - 1)
+	def left(self) -> Point:
+		return Point(self.x - 1, self.y)
 	def __repr__(self) -> str:
 		return "(%d,%d)" % (self.x, self.y)
 	def __hash__(self) -> int:
-		return hash(self.__repr__())
+		return (self.y << 16) ^ self.x
 	def __eq__(self, point) -> bool:
 		if isinstance(point, Point):
 			return self.x == point.x and self.y == point.y
@@ -16,18 +25,13 @@ class Point:
 
 class Line:
 	def __init__(self, a: Point, b: Point):
-		self.point = a
-		deltaX = a.x - b.x
-		deltaY = a.y - b.y
-		if deltaX == 0:
-			self.slope = 'inf'
-		else:
-			self.slope = Fraction(deltaY, deltaX)
-	def intersects(self, p: Point):
-		deltaX = p.x - self.point.x
-		deltaY = p.y - self.point.y
-		if self.slope == 'inf':
-			return self.point.x == p.x
-		elif deltaX == 0:
-			return False
-		return self.slope == Fraction(deltaY, deltaX)
+		self.slope = float('inf') if a.x - b.x == 0 else (a.y - b.y) / (a.x - b.x)
+		self.intercept = a.x if a.x == b.x else a.y - self.slope * a.x
+	def intersects(self, p: Point) -> bool:
+		if not isfinite(self.slope):
+			return p.x == self.intercept
+		return p.y == self.slope * p.x + self.intercept
+	def __repr__(self) -> str:
+		if not isfinite(self.slope):
+			return "x = %d" % self.intercept
+		return "y = %dx + %d" % (self.slope, self.intercept)

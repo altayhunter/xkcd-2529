@@ -5,14 +5,12 @@ from random import randrange
 
 class Walker:
 	def __init__(self, n: int, k: int):
-		self.marbles = []
-		self.visited = set()
 		location = Point(0, 0)
+		self.marbles = []
+		self.visited = set([location])
 		if n == 0 or k == 0: return
 		while not self.__trapped(location):
-			desired = self.__randomNeighbor(location)
-			while desired in self.visited:
-				desired = self.__randomNeighbor(location)
+			desired = self.__validNeighbor(location)
 			if len(self.visited) % n == 0:
 				self.marbles.append(desired)
 			self.visited.add(desired)
@@ -20,20 +18,21 @@ class Walker:
 			if len(self.visited) > n * k: break
 	def __trapped(self, p: Point) -> bool:
 		return (
-			Point(p.x, p.y + 1) in self.visited and
-			Point(p.x + 1, p.y) in self.visited and
-			Point(p.x, p.y - 1) in self.visited and
-			Point(p.x - 1, p.y) in self.visited
+			p.up() in self.visited and
+			p.right() in self.visited and
+			p.down() in self.visited and
+			p.left() in self.visited
 		)
+	def __validNeighbor(self, p: Point) -> Point:
+		neighbor = self.__randomNeighbor(p)
+		while neighbor in self.visited:
+			neighbor = self.__randomNeighbor(p)
+		return neighbor
 	def __randomNeighbor(self, p: Point) -> Point:
-		direction = randrange(4)
-		if direction == 0:
-			return Point(p.x, p.y + 1)
-		elif direction == 1:
-			return Point(p.x + 1, p.y)
-		elif direction == 2:
-			return Point(p.x, p.y - 1)
-		else:
-			return Point(p.x - 1, p.y)
+		match randrange(4):
+			case 0: return p.up()
+			case 1: return p.right()
+			case 2: return p.down()
+			case _: return p.left()
 	def intersections(self) -> int:
 		return BestLine(self.marbles).numPoints
