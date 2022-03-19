@@ -33,7 +33,7 @@ func TestDoubleZero(t *testing.T) {
 }
 
 func TestNormalInputs(t *testing.T) {
-	w := *NewWalker(4, 5)
+	w := *NewWalker(3, 5)
 	if w.steps() < 8 {
 		t.Errorf("Expected %d to be at least 8", w.steps())
 	}

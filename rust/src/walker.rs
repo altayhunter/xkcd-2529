@@ -25,6 +25,7 @@ impl Walker {
 			}
 			visited.insert(desired);
 			location = desired;
+			log::debug!("Visited {}", location);
 			if visited.len() > n * k {
 				break;
 			}
@@ -92,7 +93,7 @@ mod tests {
 	#[test]
 	fn test_normal_inputs() {
 		let mut rng = rand::rngs::SmallRng::from_entropy();
-		let w = Walker::new(&mut rng, 4, 5);
+		let w = Walker::new(&mut rng, 3, 5);
 		assert!(w.steps() >= 8);
 		assert!(w.steps() <= 21);
 		assert!(w.intersections() >= 2);

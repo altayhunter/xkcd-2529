@@ -25,7 +25,7 @@ int main() {
 	}
 	// Normal inputs
 	{
-		Walker w(4, 5);
+		Walker w(3, 5);
 		assert(w.steps() >= 8);
 		assert(w.steps() <= 21);
 		assert(w.intersections() >= 2);

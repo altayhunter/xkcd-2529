@@ -17,7 +17,7 @@ describe('Walker', () => {
 		expect(w.intersections()).toEqual(0);
 	});
 	it('should behave normally', () => {
-		const w = new Walker(4, 5);
+		const w = new Walker(3, 5);
 		expect(w.steps()).toBeGreaterThanOrEqual(8);
 		expect(w.steps()).toBeLessThanOrEqual(21);
 		expect(w.intersections()).toBeGreaterThanOrEqual(2);
