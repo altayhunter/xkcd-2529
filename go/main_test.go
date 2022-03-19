@@ -69,3 +69,29 @@ func TestN5K1000(t *testing.T) {
 		t.Errorf("Expected %f to be within 0.2 of 3.33", intersections);
 	}
 }
+
+func TestN10K1(t *testing.T) {
+	n := uint(10)
+	k := uint(1)
+	runs := uint(1000)
+	steps, intersections := compute_averages(n, k, runs)
+	if math.Abs(steps - 10.98) > 0.2 {
+		t.Errorf("Expected %f to be within 0.2 of 10.98", steps);
+	}
+	if math.Abs(intersections - 0.99) > 0.01 {
+		t.Errorf("Expected %f to be within 0.01 of 0.99", intersections);
+	}
+}
+
+func TestN1K10(t *testing.T) {
+	n := uint(1)
+	k := uint(10)
+	runs := uint(1000)
+	steps, intersections := compute_averages(n, k, runs)
+	if math.Abs(steps - 10.98) > 0.1 {
+		t.Errorf("Expected %f to be within 0.1 of 10.98", steps);
+	}
+	if math.Abs(intersections - 4.56) > 0.1 {
+		t.Errorf("Expected %f to be within 0.1 of 4.56", intersections);
+	}
+}

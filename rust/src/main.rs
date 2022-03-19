@@ -75,4 +75,20 @@ mod tests {
 		assert_relative_eq!(steps, 71.95, epsilon = 7.0);
 		assert_relative_eq!(intersections, 3.33, epsilon = 0.2);
     }
+
+    #[test]
+    fn test_n_10_k_1() {
+		let (n, k, runs) = (10, 1, 1000);
+		let (steps, intersections) = compute_averages(n, k, runs);
+		assert_relative_eq!(steps, 10.98, epsilon = 0.2);
+		assert_relative_eq!(intersections, 0.99, epsilon = 0.01);
+    }
+
+    #[test]
+    fn test_n_1_k_10() {
+		let (n, k, runs) = (1, 10, 1000);
+		let (steps, intersections) = compute_averages(n, k, runs);
+		assert_relative_eq!(steps, 10.98, epsilon = 0.1);
+		assert_relative_eq!(intersections, 4.56, epsilon = 0.1);
+    }
 }

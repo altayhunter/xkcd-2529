@@ -31,4 +31,16 @@ describe('index', () => {
 		expect(Math.abs(steps - 71.95)).toBeLessThan(7.0);
 		expect(Math.abs(intersections - 3.33)).toBeLessThan(0.2);
 	});
+	it('has n=10 k=1', () => {
+		const [n, k, runs] = [10, 1, 1000];
+		const [steps, intersections] = compute_averages(n, k, runs);
+		expect(Math.abs(steps - 10.98)).toBeLessThan(0.2);
+		expect(Math.abs(intersections - 0.99)).toBeLessThan(0.01);
+	});
+	it('has n=1 k=10', () => {
+		const [n, k, runs] = [1, 10, 1000];
+		const [steps, intersections] = compute_averages(n, k, runs);
+		expect(Math.abs(steps - 10.98)).toBeLessThan(0.1);
+		expect(Math.abs(intersections - 4.56)).toBeLessThan(0.1);
+	});
 });
