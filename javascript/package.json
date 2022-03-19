@@ -1,6 +1,6 @@
 {
   "name": "xkcd-2529",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Random walker to solve xkcd.com/2529",
   "main": "index.mjs",
   "devDependencies": {
