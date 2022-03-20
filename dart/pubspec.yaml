@@ -1,0 +1,11 @@
+name: dart
+description: Solver for the weirdly concrete problem in xkcd.com/2529.
+version: 1.0.0
+homepage: https://github.com/altayhunter/xkcd-2529
+
+environment:
+  sdk: '>=2.14.4 <3.0.0'
+
+dev_dependencies:
+  lints: ^1.0.0
+  test: ^1.16.0
