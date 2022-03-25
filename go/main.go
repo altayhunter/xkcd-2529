@@ -1,28 +1,45 @@
 package main
 
-import "fmt"
-import "math/rand"
-import "time"
+import (
+	"fmt"
+	"math/rand"
+	"runtime"
+	"time"
+	"github.com/barweiss/go-tuple"
+)
 
-func average(numbers []uint) float64 {
-	total := uint(0)
-	for _, n := range numbers {
-		total += n
+func worker(done chan tuple.T2[uint, uint], n uint, k uint, runs uint) {
+	steps := uint(0)
+	intersections := uint(0)
+	for i := uint(0); i < runs; i += 1 {
+		w := *NewWalker(n, k)
+		steps += w.steps()
+		intersections += w.intersections()
 	}
-	return float64(total) / float64(len(numbers))
+	done <- tuple.New2(steps, intersections)
 }
 
 func compute_averages(n uint, k uint, runs uint) (float64, float64) {
-	steps := make([]uint, 0, runs)
-	intersections := make([]uint, 0, runs)
+	threads := uint(runtime.NumCPU())
+	done := make(chan tuple.T2[uint, uint], threads)
 	rand.Seed(time.Now().UnixNano())
-	for i := uint(0); i < runs; i += 1 {
-		w := *NewWalker(n, k)
-		steps = append(steps, w.steps())
-		intersections = append(intersections, w.intersections())
+	for i := uint(0); i < threads; i += 1 {
+		each := runs / threads
+		extra := runs % threads
+		if i == 0 {
+			go worker(done, n, k, each + extra)
+		} else {
+			go worker(done, n, k, each)
+		}
 	}
-	avg_steps := average(steps)
-	avg_intersections := average(intersections)
+	steps, intersections := uint(0), uint(0)
+	for i := uint(0); i < threads; i += 1 {
+		values := <- done
+		steps += values.V1
+		intersections += values.V2
+	}
+	avg_steps := float64(steps) / float64(runs)
+	avg_intersections := float64(intersections) / float64(runs)
 	return avg_steps, avg_intersections
 }
 
