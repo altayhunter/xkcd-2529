@@ -3,29 +3,23 @@ mod bestline;
 mod walker;
 use crate::walker::Walker;
 use rand::SeedableRng;
-
-fn average(numbers: &[usize]) -> f64 {
-	numbers.iter().sum::<usize>() as f64 / numbers.len() as f64
-}
+use rayon::prelude::*;
 
 fn compute_averages(n: usize, k: usize, runs: usize) -> (f64, f64) {
-	let mut steps = Vec::with_capacity(runs);
-	let mut intersections = Vec::with_capacity(runs);
-	let mut rng = rand::rngs::SmallRng::from_entropy();
-	for _ in 0..runs {
+	let sums = (0..runs).into_par_iter().map(|_| {
+		let mut rng = rand::rngs::SmallRng::from_entropy();
 		let w = Walker::new(&mut rng, n, k);
-		steps.push(w.steps());
-		intersections.push(w.intersections());
-	}
-	let avg_steps = average(steps.as_slice());
-	let avg_intersections = average(intersections.as_slice());
-	(avg_steps, avg_intersections)
+		(w.steps(), w.intersections())
+	}).reduce(|| {(0, 0)}, |a, e| {
+		(a.0 + e.0, a.1 + e.1)
+	});
+	(sums.0 as f64 / runs as f64, sums.1 as f64 / runs as f64)
 }
 
 fn main() {
 	let n = 4;
 	let k = 1000;
-	let runs = 1000;
+	let runs = 1_000_000;
 	let (steps, intersections) = compute_averages(n, k, runs);
 	println!("Average of {} runs is {} steps and {} intersections",
 			runs, steps, intersections);
