@@ -3,7 +3,7 @@ from line import Point
 from line import Line
 
 class BestLine:
-	def __init__(self, points: list[Point]):
+	def __init__(self, points: list):
 		if (len(points) < 2):
 			self.numPoints = len(points)
 			return
