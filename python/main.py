@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/pypy3
 import sys
 from statistics import mean
 from walker import Walker

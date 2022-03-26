@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/pypy3
 from bestline import BestLine
 from line import Point
 from random import randrange

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/pypy3
 from __future__ import annotations
 from math import isfinite
 
