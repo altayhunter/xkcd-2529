@@ -12,7 +12,7 @@ javascript: $(SRCS)
 	$(KJSC) $(SRCS) -module-kind commonjs -main call -output $(TARGET).js
 
 run: $(TARGET)
-	java -cp lib/kotlinx-coroutines-core-1.4.0.jar:$(TARGET).jar MainKt
+	java -ea -cp lib/kotlinx-coroutines-core-1.4.0.jar:$(TARGET).jar MainKt
 
 time: $(TARGET)
 	time (java -cp lib/kotlinx-coroutines-core-1.4.0.jar:$(TARGET).jar MainKt)
