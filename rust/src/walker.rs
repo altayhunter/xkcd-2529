@@ -41,11 +41,11 @@ impl Walker {
 		while !Self::trapped(&visited, location) {
 			(location, direction) =
 					Self::valid_neighbor(rng, &visited, location, direction);
-			visited.insert(location);
-			debug!("Moved {:?} to {}", direction, location);
 			if visited.len() % n == 0 {
 				marbles.push(location);
 			}
+			visited.insert(location);
+			debug!("Moved {:?} to {}", direction, location);
 			if visited.len() > n * k {
 				break;
 			}
