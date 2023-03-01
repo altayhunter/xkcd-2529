@@ -7,6 +7,7 @@ public:
 	Walker(unsigned n, unsigned k);
 	int intersections() const;
 	int steps() const;
+	bool firstMarbleParity() const;
 private:
 	Point randomNeighbor(const Point& p) const;
 	bool trapped(const Point& p) const;

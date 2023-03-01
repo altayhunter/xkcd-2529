@@ -23,12 +23,18 @@ int main() {
 		assert(w.steps() == 1);
 		assert(w.intersections() == 0);
 	}
+	// Marble placement
+	{
+		Walker w(4, 1);
+		assert(w.firstMarbleParity());
+	}
 	// Normal inputs
 	{
 		Walker w(3, 5);
 		assert(w.steps() >= 8);
-		assert(w.steps() <= 21);
+		assert(w.steps() <= 16);
 		assert(w.intersections() >= 2);
+		assert(w.intersections() <= 5);
 	}
 	cout << "Test passed.\n";
 	return 0;

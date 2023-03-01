@@ -91,11 +91,20 @@ mod tests {
 	}
 
 	#[test]
+	fn test_marble_placement() {
+		let mut rng = rand::rngs::SmallRng::from_entropy();
+		let w = Walker::new(&mut rng, 4, 1);
+		assert_eq!(w.marbles.len(), 1);
+		assert_eq!(w.marbles[0].parity(), true);
+	}
+
+	#[test]
 	fn test_normal_inputs() {
 		let mut rng = rand::rngs::SmallRng::from_entropy();
 		let w = Walker::new(&mut rng, 3, 5);
 		assert!(w.steps() >= 8);
-		assert!(w.steps() <= 21);
+		assert!(w.steps() <= 16);
 		assert!(w.intersections() >= 2);
+		assert!(w.intersections() <= 5);
 	}
 }

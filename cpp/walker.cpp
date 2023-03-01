@@ -1,6 +1,7 @@
 #include "walker.hpp"    // Walker
 #include "best_line.hpp" // BestLine
 #include "point.hpp"     // Point
+#include <cassert>       // assert
 #include <ctime>         // time
 #include <functional>    // bind
 #include <random>        // uniform_int_distribution, default_random_engine
@@ -29,6 +30,11 @@ int Walker::intersections() const {
 
 int Walker::steps() const {
 	return visited.size();
+}
+
+bool Walker::firstMarbleParity() const {
+	assert(!marbles.empty());
+	return (marbles[0].x + marbles[0].y) % 2 == 0;
 }
 
 Point Walker::randomNeighbor(const Point& p) const {

@@ -32,15 +32,29 @@ func TestDoubleZero(t *testing.T) {
 	}
 }
 
+func TestMarblePlacement(t *testing.T) {
+	w := *NewWalker(4, 1)
+	if len(w.marbles) != 1 {
+		t.Errorf("Expected %d to match 1", len(w.marbles))
+	}
+	hasEvenParity := func(p Point) bool { return (p.x + p.y) % 2 == 0 }
+	if !hasEvenParity(w.marbles[0]) {
+		t.Errorf("Expected %s to have even parity", w.marbles[0])
+	}
+}
+
 func TestNormalInputs(t *testing.T) {
 	w := *NewWalker(3, 5)
 	if w.steps() < 8 {
 		t.Errorf("Expected %d to be at least 8", w.steps())
 	}
-	if w.steps() > 21 {
-		t.Errorf("Expected %d to be less than 22", w.steps())
+	if w.steps() > 16 {
+		t.Errorf("Expected %d to be less than 17", w.steps())
 	}
 	if w.intersections() < 2 {
 		t.Errorf("Expected %d to be greater than 1", w.intersections())
+	}
+	if w.intersections() > 5 {
+		t.Errorf("Expected %d to be less than 6", w.steps())
 	}
 }
