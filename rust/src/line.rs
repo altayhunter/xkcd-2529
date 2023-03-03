@@ -20,7 +20,8 @@ impl Point {
 	pub fn left(&self) -> Point {
 		Point {x: self.x - 1, y: self.y}
 	}
-	pub fn parity(&self) -> bool {
+	#[cfg(test)]
+	pub fn even_parity(&self) -> bool {
 		(self.x + self.y) % 2 == 0
 	}
 }

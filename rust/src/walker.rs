@@ -95,7 +95,7 @@ mod tests {
 		let mut rng = rand::rngs::SmallRng::from_entropy();
 		let w = Walker::new(&mut rng, 4, 1);
 		assert_eq!(w.marbles.len(), 1);
-		assert_eq!(w.marbles[0].parity(), true);
+		assert_eq!(w.marbles[0].even_parity(), true);
 	}
 
 	#[test]
