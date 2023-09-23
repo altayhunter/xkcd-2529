@@ -1,4 +1,5 @@
 #include "walker.hpp" // Walker
+#include <cstdint>    // uint64_t
 #include <iostream>   // cout
 #include <numeric>    // accumulate
 

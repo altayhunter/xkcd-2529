@@ -4,7 +4,7 @@
   "description": "Random walker to solve xkcd.com/2529",
   "main": "index.mjs",
   "devDependencies": {
-    "jasmine": "^3.10.0"
+    "jasmine": "^5.1.0"
   },
   "scripts": {
     "test": "jasmine"
