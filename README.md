@@ -82,8 +82,8 @@ Each of the implementations averaged the results of a million runs with `n=4` an
 * Rust: 8.1 seconds
 * Kotlin: 11 seconds
 * C++: 14 seconds
+* Java: 24 seconds
 * Go: 26 seconds
-* Java: 37 seconds
 * Dart: 97 seconds
 * JavaScript: 195 seconds
 * Python: 239 seconds

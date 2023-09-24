@@ -53,23 +53,4 @@ public class Walker {
 			default: return p.left();
 		}
 	}
-
-	public static void main(String[] args) {
-		int n = 4;
-		int k = 1000;
-		ArrayList<Integer> steps = new ArrayList<>();
-		ArrayList<Integer> intersections = new ArrayList<>();
-		for (int i = 0; i < 1000000; i++) {
-			Walker w = new Walker(n, k);
-			steps.add(w.steps());
-			intersections.add(w.intersections());
-		}
-		double avg_steps = steps.stream().mapToInt(Integer::intValue)
-				.average().orElse(Double.NaN);
-		double avg_intersections = intersections.stream()
-				.mapToInt(Integer::intValue).average().orElse(Double.NaN);
-		System.out.println("Average of " + steps.size() + " runs is " +
-				avg_steps + " steps and " + avg_intersections +
-				" intersections");
-	}
 }

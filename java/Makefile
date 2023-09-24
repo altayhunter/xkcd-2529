@@ -1,4 +1,4 @@
-TARGET = Walker
+TARGET = Main
 JC = javac
 JR = java
 SRCS := $(wildcard *.java)
