@@ -10,6 +10,7 @@ approx = "0.5"
 log = "0.4"
 rand = { version = "0.8", features = ["small_rng"] }
 rayon = "1.8"
+rustc-hash = "1.1"
 
 [profile.release]
 debug = 1

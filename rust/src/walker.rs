@@ -2,12 +2,12 @@ use crate::bestline::BestLine;
 use crate::line::Point;
 use rand::Rng;
 use rand::rngs::SmallRng;
-use std::collections::HashSet;
+use rustc_hash::FxHashSet;
 
 #[derive(Debug)]
 pub struct Walker {
 	marbles: Vec<Point>,
-	visited: HashSet<Point>,
+	visited: FxHashSet<Point>,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -22,7 +22,8 @@ impl Walker {
 	pub fn new(rng: &mut SmallRng, n: usize, k: usize) -> Self {
 		let mut location = Point::new(0, 0);
 		let mut marbles = vec![];
-		let mut visited = HashSet::from([location]);
+		let mut visited = FxHashSet::default();
+		visited.insert(location);
 		if n == 0 || k == 0 {
 			return Walker {marbles, visited};
 		}
@@ -52,7 +53,7 @@ impl Walker {
 	pub fn intersections(&self) -> usize {
 		BestLine::new(&self.marbles).intersections()
 	}
-	fn trapped(visited: &HashSet<Point>, p: Point) -> bool {
+	fn trapped(visited: &FxHashSet<Point>, p: Point) -> bool {
 		visited.contains(&p.up()) &&
 		visited.contains(&p.right()) &&
 		visited.contains(&p.down()) &&
@@ -60,7 +61,7 @@ impl Walker {
 	}
 	fn valid_neighbor(
 			rng: &mut SmallRng,
-			visited: &HashSet<Point>,
+			visited: &FxHashSet<Point>,
 			p: Point,
 			d: Direction) -> (Point, Direction) {
 		let mut neighbor = Self::random_neighbor(rng, p, d);
