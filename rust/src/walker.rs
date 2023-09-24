@@ -3,10 +3,6 @@ use crate::line::Point;
 use rand::Rng;
 use rand::rngs::SmallRng;
 use std::collections::HashSet;
-#[cfg(not(test))]
-use log::debug;
-#[cfg(test)]
-use std::{println as debug};
 
 #[derive(Debug)]
 pub struct Walker {
@@ -33,7 +29,6 @@ impl Walker {
 		let mut direction;
 		(location, direction) = Self::first_random_neighbor(rng, location);
 		visited.insert(location);
-		debug!("Moved {:?} to {}", direction, location);
 		if n == 1 {
 			marbles.push(location);
 			if k == 1 { return Walker {marbles, visited}; }
@@ -41,11 +36,10 @@ impl Walker {
 		while !Self::trapped(&visited, location) {
 			(location, direction) =
 					Self::valid_neighbor(rng, &visited, location, direction);
-			if visited.len() % n == 0 {
+			visited.insert(location);
+			if (visited.len() - 1) % n == 0 {
 				marbles.push(location);
 			}
-			visited.insert(location);
-			debug!("Moved {:?} to {}", direction, location);
 			if visited.len() > n * k {
 				break;
 			}
