@@ -85,5 +85,5 @@ Each of the implementations averaged the results of a million runs with `n=4` an
 * Java: 24 seconds
 * Go: 26 seconds
 * Dart: 97 seconds
-* JavaScript: 195 seconds
+* JavaScript: 115 seconds
 * Python: 239 seconds
