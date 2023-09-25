@@ -29,14 +29,10 @@ class Walker:
 			neighbor = self.__randomNeighbor(p)
 		return neighbor
 	def __randomNeighbor(self, p: Point) -> Point:
-		direction = randrange(4)
-		if direction == 0:
-			return p.up()
-		elif direction == 1:
-			return p.right()
-		elif direction == 2:
-			return p.down()
-		else:
-			return p.left()
+		match randrange(4):
+			case 0: return p.up()
+			case 1: return p.right()
+			case 2: return p.down()
+			case _: return p.left()
 	def intersections(self) -> int:
 		return BestLine(self.marbles).numPoints
