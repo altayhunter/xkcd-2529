@@ -20,16 +20,15 @@ enum Direction {
 
 impl Walker {
 	pub fn new(rng: &mut SmallRng, n: usize, k: usize) -> Self {
-		let mut location = Point::new(0, 0);
 		let mut marbles = vec![];
 		let mut visited = FxHashSet::default();
-		visited.insert(location);
+		visited.insert(Point::new(0, 0));
 		if n == 0 || k == 0 {
 			return Walker {marbles, visited};
 		}
-		let mut direction;
-		(location, direction) = Self::first_random_neighbor(rng, location);
+		let mut location = Point::new(0, 1);
 		visited.insert(location);
+		let mut direction = Direction::Up;
 		if n == 1 {
 			marbles.push(location);
 			if k == 1 { return Walker {marbles, visited}; }
@@ -69,14 +68,6 @@ impl Walker {
 			neighbor = Self::random_neighbor(rng, p, d);
 		}
 		neighbor
-	}
-	fn first_random_neighbor(rng: &mut SmallRng, p: Point) -> (Point, Direction) {
-		match rng.gen_range(0..4) {
-			0 => (p.up(), Direction::Up),
-			1 => (p.right(), Direction::Right),
-			2 => (p.down(), Direction::Down),
-			_ => (p.left(), Direction::Left),
-		}
 	}
 	fn random_neighbor(rng: &mut SmallRng, p: Point, d: Direction)
 			-> (Point, Direction) {
