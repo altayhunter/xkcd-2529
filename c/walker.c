@@ -18,16 +18,10 @@ guint32 add_to_hash(guint32 hash, guint32 value) {
 
 guint32 fx_hash(gconstpointer key) {
 	guint32 hash = 0;
-	const Point* point = key;
-	hash = add_to_hash(hash, point->x);
-	hash = add_to_hash(hash, point->y);
+	Point p = point_from_void(key);
+	hash = add_to_hash(hash, p.x);
+	hash = add_to_hash(hash, p.y);
 	return hash;
-}
-
-gboolean comparator(gconstpointer a, gconstpointer b) {
-	const Point* p = a;
-	const Point* q = b;
-	return p->x == q->x && p->y == q->y;
 }
 
 typedef enum {
@@ -79,10 +73,11 @@ Point neighbor(Point p, Direction d) {
 	assert(!"Unexpected direction!");
 }
 
+
 Direction valid_direction(GHashTable* visited, Point p, Direction d) {
 	Direction rd = random_direction(d);
 	Point n = neighbor(p, rd);
-	while (g_hash_table_contains(visited, &n)) {
+	while (g_hash_table_contains(visited, point_to_void(n))) {
 		rd = random_direction(d);
 		n = neighbor(p, rd);
 	}
@@ -95,10 +90,10 @@ gboolean trapped(GHashTable* visited, Point p) {
 	Point down = point_neighbor_down(p);
 	Point left = point_neighbor_left(p);
 	return
-		g_hash_table_contains(visited, &up) &&
-		g_hash_table_contains(visited, &right) &&
-		g_hash_table_contains(visited, &down) &&
-		g_hash_table_contains(visited, &left);
+		g_hash_table_contains(visited, point_to_void(up)) &&
+		g_hash_table_contains(visited, point_to_void(right)) &&
+		g_hash_table_contains(visited, point_to_void(down)) &&
+		g_hash_table_contains(visited, point_to_void(left));
 }
 
 WalkResults walk(unsigned n, unsigned k) {
@@ -108,11 +103,11 @@ WalkResults walk(unsigned n, unsigned k) {
 			.intersections = 0,
 		};
 	}
-	GHashTable* visited = g_hash_table_new_full(fx_hash, comparator, point_destroy, NULL);
+	GHashTable* visited = g_hash_table_new(fx_hash, NULL);
 	Point location = (Point) { .x = 0, .y = 0 };
-	g_hash_table_add(visited, point_new(location));
+	g_hash_table_add(visited, point_to_void(location));
 	location = (Point) { .x = 0, .y = 1 };
-	g_hash_table_add(visited, point_new(location));
+	g_hash_table_add(visited, point_to_void(location));
 	Direction direction = Up;
 	PointVector marbles = point_vector_new(1);
 	if (n == 1) {
@@ -127,7 +122,7 @@ WalkResults walk(unsigned n, unsigned k) {
 	while (!trapped(visited, location)) {
 		direction = valid_direction(visited, location, direction);
 		location = neighbor(location, direction);
-		g_hash_table_add(visited, point_new(location));
+		g_hash_table_add(visited, point_to_void(location));
 		if ((g_hash_table_size(visited) - 1) % n == 0) {
 			point_vector_push_back(&marbles, location);
 		}

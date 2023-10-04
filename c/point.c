@@ -1,12 +1,4 @@
 #include "point.h"  // Point
-#include <stdlib.h> // malloc, free
-
-Point* point_new(Point p) {
-	Point* q = (Point*)malloc(sizeof(Point));
-	q->x = p.x;
-	q->y = p.y;
-	return q;
-}
 
 Point point_neighbor_up(Point p) {
 	return (Point) { .x = p.x, .y = p.y + 1 };
@@ -24,6 +16,16 @@ Point point_neighbor_down(Point p) {
 	return (Point) { .x = p.x, .y = p.y - 1 };
 }
 
-void point_destroy(void* p) {
-	free((Point*)p);
+void* point_to_void(Point p) {
+	uintptr_t v = 0;
+	v |= (uint32_t)p.x;
+	v <<= 32;
+	v |= (uint32_t)p.y;
+	return (void*)v;
+}
+
+Point point_from_void(const void* v) {
+	uint32_t y = (uintptr_t)v & 0xffffffff;
+	uint32_t x = ((uintptr_t)v >> 32);
+	return (Point) { .x = x, .y = y };
 }
