@@ -1,6 +1,6 @@
 package main
 
-import "math/rand"
+import "hash/maphash"
 
 type Walker struct {
 	marbles []Point
@@ -50,7 +50,7 @@ func valid_neighbor(visited map[Point]bool, p Point) Point {
 }
 
 func random_neighbor(p Point) Point {
-	switch rand.Intn(4) {
+	switch rand(4) {
 	case 0:
 		return p.up()
 	case 1:
@@ -60,4 +60,8 @@ func random_neighbor(p Point) Point {
 	default:
 		return p.left()
 	}
+}
+
+func rand(max uint64) uint64 {
+	return new(maphash.Hash).Sum64() % max
 }

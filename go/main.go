@@ -2,9 +2,7 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"runtime"
-	"time"
 	"github.com/barweiss/go-tuple"
 )
 
@@ -22,7 +20,6 @@ func worker(done chan tuple.T2[uint, uint], n uint, k uint, runs uint) {
 func compute_averages(n uint, k uint, runs uint) (float64, float64) {
 	threads := uint(runtime.NumCPU())
 	done := make(chan tuple.T2[uint, uint], threads)
-	rand.Seed(time.Now().UnixNano())
 	for i := uint(0); i < threads; i += 1 {
 		each := runs / threads
 		extra := runs % threads

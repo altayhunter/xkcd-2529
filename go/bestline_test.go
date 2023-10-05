@@ -4,12 +4,12 @@ import "testing"
 
 func TestFourHorizontalThreeVertical(t *testing.T) {
 	v := []Point{
-		Point{0, 1},
-		Point{1, 1},
-		Point{1, 0},
-		Point{2, 1},
-		Point{1, 2},
-		Point{3, 1},
+		{0, 1},
+		{1, 1},
+		{1, 0},
+		{2, 1},
+		{1, 2},
+		{3, 1},
 	}
 	bl := *NewBestLine(v)
 	if bl.intersections() != 4 {
@@ -22,10 +22,10 @@ func TestFourHorizontalThreeVertical(t *testing.T) {
 
 func TestThreeDiagonalTwoHorizontal(t *testing.T) {
 	v := []Point{
-		Point{3, 3},
-		Point{5, 3},
-		Point{2, 0},
-		Point{4, 6},
+		{3, 3},
+		{5, 3},
+		{2, 0},
+		{4, 6},
 	}
 	bl := *NewBestLine(v)
 	if bl.intersections() != 3 {
