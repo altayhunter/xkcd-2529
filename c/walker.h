@@ -5,4 +5,4 @@ typedef struct {
 	unsigned intersections;
 } WalkResults;
 
-WalkResults walk(unsigned n, unsigned k);
+WalkResults walk(unsigned n, unsigned k, unsigned* seed);

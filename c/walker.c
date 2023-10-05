@@ -2,7 +2,8 @@
 #include <assert.h>       // assert
 #include <glib.h>         // g_hash_table
 #include <stdio.h>        // printf
-#include <stdlib.h>       // rand
+#include <stdlib.h>       // rand_r
+#include <time.h>         // time
 #include "best_line.h"    // best_line_intersections
 #include "point.h"        // Point
 #include "point_vector.h" // point_vector
@@ -31,8 +32,8 @@ typedef enum {
 	Left,
 } Direction;
 
-Direction random_direction(Direction d) {
-	unsigned random = rand() % 3;
+Direction random_direction(Direction d, unsigned* seed) {
+	unsigned random = rand_r(seed) % 3;
 	switch (d) {
 		case Up:
 			switch (random) {
@@ -74,11 +75,11 @@ Point neighbor(Point p, Direction d) {
 }
 
 
-Direction valid_direction(GHashTable* visited, Point p, Direction d) {
-	Direction rd = random_direction(d);
+Direction valid_direction(GHashTable* visited, Point p, Direction d, unsigned* seed) {
+	Direction rd = random_direction(d, seed);
 	Point n = neighbor(p, rd);
 	while (g_hash_table_contains(visited, point_to_void(n))) {
-		rd = random_direction(d);
+		rd = random_direction(d, seed);
 		n = neighbor(p, rd);
 	}
 	return rd;
@@ -96,7 +97,7 @@ gboolean trapped(GHashTable* visited, Point p) {
 		g_hash_table_contains(visited, point_to_void(left));
 }
 
-WalkResults walk(unsigned n, unsigned k) {
+WalkResults walk(unsigned n, unsigned k, unsigned* seed) {
 	if (n == 0 || k == 0) {
 		return (WalkResults) {
 			.steps = 1,
@@ -120,7 +121,7 @@ WalkResults walk(unsigned n, unsigned k) {
 		}
 	}
 	while (!trapped(visited, location)) {
-		direction = valid_direction(visited, location, direction);
+		direction = valid_direction(visited, location, direction, seed);
 		location = neighbor(location, direction);
 		g_hash_table_add(visited, point_to_void(location));
 		if ((g_hash_table_size(visited) - 1) % n == 0) {

@@ -1,8 +1,7 @@
 #include <pthread.h> // pthread
 #include <stdint.h>  // uint64_t
 #include <stdio.h>   // printf
-#include <stdlib.h>  // srand
-#include <time.h>    // time
+#include <stdlib.h>  // malloc, free
 #include <unistd.h>  // sysconf
 #include "walker.h"  // walk
 
@@ -16,8 +15,9 @@ typedef struct {
 
 void* worker(void* args) {
 	WorkerData* wd = (WorkerData*)args;
+	unsigned seed = time(NULL);
 	for (unsigned i = 0; i < wd->runs; i++) {
-		WalkResults wr = walk(wd->n, wd->k);
+		WalkResults wr = walk(wd->n, wd->k, &seed);
 		wd->steps += wr.steps;
 		wd->intersections += wr.intersections;
 	}
@@ -72,7 +72,6 @@ int main() {
 	unsigned n = 4;
 	unsigned k = 1000;
 	unsigned runs = 1000000;
-	srand(time(NULL));
 	Averages a = compute_averages(n, k, runs);
 	printf("Average of %d runs is %f steps and %f intersections\n",
 			runs, a.steps, a.intersections);
