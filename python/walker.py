@@ -1,10 +1,11 @@
 #!/usr/bin/pypy3
 from bestline import BestLine
 from line import Point
-from random import randrange
+from random import Random
 
 class Walker:
-	def __init__(self, n: int, k: int):
+	def __init__(self, n: int, k: int, random: Random):
+		self.random = random
 		location = Point(0, 0)
 		self.marbles = []
 		self.visited = set([location])
@@ -29,7 +30,7 @@ class Walker:
 			neighbor = self.__randomNeighbor(p)
 		return neighbor
 	def __randomNeighbor(self, p: Point) -> Point:
-		match randrange(4):
+		match self.random.randrange(4):
 			case 0: return p.up()
 			case 1: return p.right()
 			case 2: return p.down()
