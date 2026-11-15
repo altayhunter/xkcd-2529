@@ -78,13 +78,13 @@ Any sufficiently large value of `k` is equivalent to any other, because the walk
 | 50 | 0.805 |
 
 ## Performance
-Each of the implementations averaged the results of a million runs with `n=4` and `k=1000`. They were run on an Intel Core i5-4200U.
-* Rust: 5.5 seconds
-* Kotlin: 11 seconds
-* C: 13 seconds
-* C++: 14 seconds
-* Go: 15 seconds
-* Java: 24 seconds
-* Dart: 50 seconds
-* JavaScript: 115 seconds
-* Python: 137 seconds
+Each of the implementations averaged the results of a million runs with `n=4` and `k=1000`. They were run on an Intel Core i7-7600U.
+* Rust: 3.1 seconds
+* Kotlin: 7.3 seconds
+* C: 8.1 seconds
+* Go: 9.1 seconds
+* C++: 9.7 seconds
+* Java: 14 seconds
+* Dart: 34 seconds
+* JavaScript: 57 seconds
+* Python: 65 seconds
