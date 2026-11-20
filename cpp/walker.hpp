@@ -1,6 +1,6 @@
-#include "point.hpp"     // Point
-#include <unordered_set> // unordered_set
-#include <vector>        // vector
+#include "point.hpp"                      // Point
+#include <absl/container/flat_hash_set.h> // flat_hash_set
+#include <vector>                         // vector
 
 class Walker {
 public:
@@ -12,5 +12,5 @@ private:
 	Point randomNeighbor(const Point& p) const;
 	bool trapped(const Point& p) const;
 	std::vector<Point> marbles;
-	std::unordered_set<Point, Point::Hash> visited;
+	absl::flat_hash_set<Point> visited;
 };
