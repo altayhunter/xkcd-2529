@@ -1,3 +1,5 @@
+use crate::walker::Direction;
+
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Point {
 	x: i32,
@@ -5,20 +7,17 @@ pub struct Point {
 }
 
 impl Point {
-	pub fn new(x: i32, y: i32) -> Point {
+	pub const fn new(x: i32, y: i32) -> Point {
 		Point {x, y}
 	}
-	pub fn up(&self) -> Point {
-		Point {x: self.x, y: self.y + 1}
-	}
-	pub fn right(&self) -> Point {
-		Point {x: self.x + 1, y: self.y}
-	}
-	pub fn down(&self) -> Point {
-		Point {x: self.x, y: self.y - 1}
-	}
-	pub fn left(&self) -> Point {
-		Point {x: self.x - 1, y: self.y}
+	pub fn step(&self, d: Direction) -> Point {
+		const UP: Point = Point::new(0, 1);
+		const RIGHT: Point = Point::new(1, 0);
+		const DOWN: Point = Point::new(0, -1);
+		const LEFT: Point = Point::new(-1, 0);
+		const DELTAS: [Point; 4] = [UP, RIGHT, DOWN, LEFT];
+		let delta = DELTAS[d as usize];
+		Point::new(self.x + delta.x, self.y + delta.y)
 	}
 	#[cfg(test)]
 	pub fn even_parity(&self) -> bool {

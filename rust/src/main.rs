@@ -1,5 +1,5 @@
-mod line;
 mod bestline;
+mod line;
 mod walker;
 use crate::walker::Walker;
 use rand::SeedableRng;
