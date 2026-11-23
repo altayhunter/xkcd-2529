@@ -79,10 +79,13 @@ mod tests {
 	#[test]
 	fn test_point_neighbors() {
 		let point = Point::new(-4, 7);
-		assert_ne!(point, point.right());
-		assert_eq!(point, point.left().right());
-		assert_eq!(point, point.up().down());
-		assert_eq!(point.up().right(), point.right().up());
+		assert_ne!(point, point.step(Direction::Right));
+		assert_eq!(point, point.step(Direction::Left).step(Direction::Right));
+		assert_eq!(point, point.step(Direction::Up).step(Direction::Down));
+		assert_eq!(
+			point.step(Direction::Up).step(Direction::Right),
+			point.step(Direction::Right).step(Direction::Up),
+		);
 	}
 
 	#[test]
