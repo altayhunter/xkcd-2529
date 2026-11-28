@@ -12,6 +12,34 @@ enum Direction {
 	Left,
 }
 
+fn rotate(d: Direction.Up, n: u8) -> Direction {
+	const next: Direction[4] = [
+		Direction.Left, Direction.Up, Direction.Right, Direction.Down
+	];
+	next[n % 4]
+}
+
+fn rotate(d: Direction.Right, n: u8) -> Direction {
+	const next: Direction[4] = [
+		Direction.Up, Direction.Right, Direction.Down, Direction.Left
+	];
+	next[n % 4]
+}
+
+fn rotate(d: Direction.Down, n: u8) -> Direction {
+	const next: Direction[4] = [
+		Direction.Right, Direction.Down, Direction.Left, Direction.Up
+	];
+	next[n % 4]
+}
+
+fn rotate(d: Direction.Left, n: u8) -> Direction {
+	const next: Direction[4] = [
+		Direction.Down, Direction.Left, Direction.Up, Direction.Right
+	];
+	next[n % 4]
+}
+
 struct Walker {
 	marbles: Point[],
 	visited: dictionary<Point, bool>,
@@ -53,10 +81,10 @@ fn intersections(w: const Walker&) -> i64 {
 }
 
 fn trapped(visited: const dictionary<Point, bool>&, p: Point) -> bool {
-	visited.contains(p.up()) &&
-	visited.contains(p.right()) &&
-	visited.contains(p.down()) &&
-	visited.contains(p.left())
+	visited.contains(p.step(Direction.Up)) &&
+	visited.contains(p.step(Direction.Right)) &&
+	visited.contains(p.step(Direction.Down)) &&
+	visited.contains(p.step(Direction.Left))
 }
 
 fn valid_neighbor(
@@ -71,26 +99,6 @@ fn valid_neighbor(
 }
 
 fn random_neighbor(p: Point, d: Direction) -> Point, Direction {
-	match d {
-		Up => match _state.rand_range(3) {
-			0 => { return p.left(), Direction.Left; },
-			1 => { return p.up(), Direction.Up; },
-			_ => { return p.right(), Direction.Right; },
-		},
-		Right => match _state.rand_range(3) {
-			0 => { return p.up(), Direction.Up; },
-			1 => { return p.right(), Direction.Right; },
-			_ => { return p.down(), Direction.Down; },
-		},
-		Down => match _state.rand_range(3) {
-			0 => { return p.right(), Direction.Right; },
-			1 => { return p.down(), Direction.Down; },
-			_ => { return p.left(), Direction.Left; },
-		},
-		Left => match _state.rand_range(3) {
-			0 => { return p.down(), Direction.Down; },
-			1 => { return p.left(), Direction.Left; },
-			_ => { return p.up(), Direction.Up; },
-		},
-	}
+	let next = d.rotate(_state.rand_range(3) as u8);
+	return p.step(next), next;
 }

@@ -5,19 +5,19 @@ struct Point {
 	y: i32,
 }
 
-fn up(p: Point) -> Point {
+fn step(p: Point, d: Direction.Up) -> Point {
 	Point { p.x, p.y + 1 }
 }
 
-fn right(p: Point) -> Point {
+fn step(p: Point, d: Direction.Right) -> Point {
 	Point { p.x + 1, p.y }
 }
 
-fn down(p: Point) -> Point {
+fn step(p: Point, d: Direction.Down) -> Point {
 	Point { p.x, p.y - 1 }
 }
 
-fn left(p: Point) -> Point {
+fn step(p: Point, d: Direction.Left) -> Point {
 	Point { p.x - 1, p.y }
 }
 
